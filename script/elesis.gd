@@ -1,14 +1,20 @@
 extends KinematicBody2D
 
+# config
 export var motion = Vector2() # final resuilt of movement
 var UP = Vector2(0,-1) # for move_and_slide()
 var WALK_SPEED = 600
 var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
-var DASH = 5000
+var DASH = 2500
 
-var dash_trigger = false
+
+# dash mechanic helper
+export var dash_trigger = false
+export var is_dashing = false
+
+
 func _ready():
 	pass # Replace with function body.
 
@@ -33,18 +39,27 @@ func _physics_process(_delta):
 
 	if Input.is_action_just_pressed("ui_right"):
 		if dash_trigger == false:
-			$dash_timer.start()
+			$dash_trigger_timer.start()
 			dash_trigger = true
-			print("DASH start")
 		elif dash_trigger == true:
-			motion.x += DASH
-			print("DASH !!!!")
-			$dash_timer.stop()
+			$dash_trigger_timer.stop()
+			$dash_length_timer.start()
 			dash_trigger = false
+			is_dashing = true
 
 	motion.y += GRAVITY
-	motion = move_and_slide(motion, UP)
+
+	if is_dashing == true:
+		motion.x = DASH
+		print("beat")
+		motion = move_and_slide(motion, UP)
+	elif is_dashing == false:
+		motion = move_and_slide(motion, UP)
 
 
 func _on_dash_timer_timeout():
 	dash_trigger = false
+
+
+func _on_dash_length_timer_timeout():
+	is_dashing = false
