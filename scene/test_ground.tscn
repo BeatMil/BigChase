@@ -27,4 +27,4 @@ anchor_mode = 0
 position = Vector2( 400, 488 )
 
 [node name="seighart" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1184, 144 )
+position = Vector2( 1776, 144 )

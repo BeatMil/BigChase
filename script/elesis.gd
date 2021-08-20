@@ -11,8 +11,10 @@ var DASH = 2500
 
 
 # dash mechanic helper
-export var dash_trigger = false
-export var is_dashing = false
+export var dash_trigger_right = false
+export var dash_trigger_left = false
+export var is_dashing_right = false
+export var is_dashing_left = false
 
 
 func _ready():
@@ -25,6 +27,7 @@ func _physics_process(_delta):
 			motion.y -= JUMP_POWER
 
 	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left"):
+		# stop moving when both right and left are pressed
 		motion.x = 0
 	elif Input.is_action_pressed("ui_right"):
 		motion.x = WALK_SPEED
@@ -38,28 +41,49 @@ func _physics_process(_delta):
 		motion.x = 0
 
 	if Input.is_action_just_pressed("ui_right"):
-		if dash_trigger == false:
-			$dash_trigger_timer.start()
-			dash_trigger = true
-		elif dash_trigger == true:
-			$dash_trigger_timer.stop()
+		# check dash right
+		if dash_trigger_right == false:
+			$dash_trigger_right_timer.start()
+			dash_trigger_right = true
+			dash_trigger_left = false
+		elif dash_trigger_right == true:
+			$dash_trigger_right_timer.stop()
 			$dash_length_timer.start()
-			dash_trigger = false
-			is_dashing = true
+			dash_trigger_right = false
+			is_dashing_right = true
+
+	if Input.is_action_just_pressed("ui_left"):
+		# check dash left
+		if dash_trigger_left == false:
+			$dash_trigger_left_timer.start()
+			dash_trigger_left = true
+			dash_trigger_right = false
+		elif dash_trigger_left == true:
+			$dash_trigger_right_timer.stop()
+			$dash_length_timer.start()
+			dash_trigger_right = false
+			is_dashing_left = true
 
 	motion.y += GRAVITY
 
-	if is_dashing == true:
+	if is_dashing_right == true:
 		motion.x = DASH
-		print("beat")
 		motion = move_and_slide(motion, UP)
-	elif is_dashing == false:
+	elif is_dashing_left == true:
+		motion.x = -DASH
+		motion = move_and_slide(motion, UP)
+	else:
 		motion = move_and_slide(motion, UP)
 
 
-func _on_dash_timer_timeout():
-	dash_trigger = false
+func _on_dash_trigger_left_timer_timeout():
+	dash_trigger_left = false
+
+
+func _on_dash_trigger_right_timer_timeout():
+	dash_trigger_right = false
 
 
 func _on_dash_length_timer_timeout():
-	is_dashing = false
+	is_dashing_right = false
+	is_dashing_left = false
