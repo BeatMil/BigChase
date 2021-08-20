@@ -27,6 +27,9 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		$Sprite.play("attack01")
+
 	if Input.is_action_pressed("ui_up"):
 		if is_on_floor():
 			motion.y -= JUMP_POWER
@@ -103,3 +106,12 @@ func _on_dash_length_timer_timeout():
 	is_dashing_right = false
 	is_dashing_left = false
 	is_running = true
+
+
+func _on_Sprite_animation_finished():
+	var animation = $Sprite.animation
+	if animation == "attack01":
+		$Sprite.play("idle")
+	
+	if animation == "idle":
+		$Sprite.stop()
