@@ -46,13 +46,13 @@ func _physics_process(_delta):
 			motion.x = RUN_SPEED
 		else:
 			motion.x = WALK_SPEED
-		$"Sprite".set_flip_h(false)
+		$Sprite.set_flip_h(false)
 	elif Input.is_action_pressed("ui_left"):
 		if is_running == true:
 			motion.x = -RUN_SPEED
 		else:
 			motion.x = -WALK_SPEED
-		$"Sprite".set_flip_h(true)
+		$Sprite.set_flip_h(true)
 	elif Input.is_action_pressed("ui_right") == false:
 		motion.x = lerp(motion.x, 0, FRICTION)
 	else:
