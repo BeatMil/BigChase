@@ -4,6 +4,7 @@ extends KinematicBody2D
 export var motion = Vector2() # final resuilt of movement
 var UP = Vector2(0,-1) # for move_and_slide()
 var WALK_SPEED = 600
+var RUN_SPEED = 1200
 var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
@@ -15,6 +16,10 @@ export var dash_trigger_right = false
 export var dash_trigger_left = false
 export var is_dashing_right = false
 export var is_dashing_left = false
+
+# run mechanic
+var is_running = false
+var is_running_left = false
 
 
 func _ready():
@@ -29,11 +34,21 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left"):
 		# stop moving when both right and left are pressed
 		motion.x = 0
+	elif Input.is_action_just_released("ui_right"):
+		is_running = false
+	elif Input.is_action_just_released("ui_left"):
+		is_running = false
 	elif Input.is_action_pressed("ui_right"):
-		motion.x = WALK_SPEED
+		if is_running == true:
+			motion.x = RUN_SPEED
+		else:
+			motion.x = WALK_SPEED
 		$"Sprite".set_flip_h(false)
 	elif Input.is_action_pressed("ui_left"):
-		motion.x = -WALK_SPEED
+		if is_running == true:
+			motion.x = -RUN_SPEED
+		else:
+			motion.x = -WALK_SPEED
 		$"Sprite".set_flip_h(true)
 	elif Input.is_action_pressed("ui_right") == false:
 		motion.x = lerp(motion.x, 0, FRICTION)
@@ -87,3 +102,4 @@ func _on_dash_trigger_right_timer_timeout():
 func _on_dash_length_timer_timeout():
 	is_dashing_right = false
 	is_dashing_left = false
+	is_running = true

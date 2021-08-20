@@ -17,12 +17,15 @@ texture = ExtResource( 1 )
 
 [node name="dash_length_timer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
 
 [node name="dash_trigger_right_timer" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
 
 [node name="dash_trigger_left_timer" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
 
 [connection signal="timeout" from="dash_length_timer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="dash_trigger_right_timer" to="." method="_on_dash_trigger_right_timer_timeout"]
