@@ -21,21 +21,30 @@ export var is_dashing_left = false
 var is_running = false
 var is_running_left = false
 
+# hitbox
+onready var hitbox01 = load("res://prefabs/hitboxes/hitbox01.tscn")
 
 func _ready():
 	pass # Replace with function body.
 
 
 func _physics_process(_delta):
+	# normal attack
 	if Input.is_action_just_pressed("ui_accept"):
 		$Sprite.play("attack01")
+		var hitbox01_real = hitbox01.instance()
+		var offset = Vector2(200,0)
+		hitbox01_real.position += offset
+		add_child(hitbox01_real) # spawn hitbox
+		print("hitbox: ", hitbox01_real.position)
+		print("elesis: ", $".".position)
 
 	if Input.is_action_pressed("ui_up"):
 		if is_on_floor():
 			motion.y -= JUMP_POWER
 
+	# stop moving when both right and left are pressed
 	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left"):
-		# stop moving when both right and left are pressed
 		motion.x = 0
 	elif Input.is_action_just_released("ui_right"):
 		is_running = false
@@ -58,8 +67,8 @@ func _physics_process(_delta):
 	else:
 		motion.x = 0
 
+	# check dash right
 	if Input.is_action_just_pressed("ui_right"):
-		# check dash right
 		if dash_trigger_right == false:
 			$dash_trigger_right_timer.start()
 			dash_trigger_right = true
@@ -70,8 +79,8 @@ func _physics_process(_delta):
 			dash_trigger_right = false
 			is_dashing_right = true
 
+	# check dash left
 	if Input.is_action_just_pressed("ui_left"):
-		# check dash left
 		if dash_trigger_left == false:
 			$dash_trigger_left_timer.start()
 			dash_trigger_left = true
