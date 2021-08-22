@@ -124,9 +124,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func attack01():
 	var offset
 	if $Sprite.flip_h == true:
-		offset = Vector2(-200,0)
+		offset = Vector2(-150,0)
 	elif $Sprite.flip_h == false:
-		offset = Vector2(200,0)
+		offset = Vector2(150,0)
 	var hitbox01_real = hitbox01.instance()
 	hitbox01_real.position += offset
 	add_child(hitbox01_real) # spawn hitbox
