@@ -47,6 +47,7 @@ func _physics_process(_delta):
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("attack"):
+		$hp_bar.decrease_hp(1)
 		$stun01_timer.start()
 		stun01 = true
 
