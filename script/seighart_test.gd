@@ -9,7 +9,8 @@ var FRICTION = 0.2
 
 # stun helper
 var stun01 = false
-var stun_power = Vector2(2000,-900)
+var stun_right = Vector2(2000,-900)
+var stun_left = Vector2(-2000,-900)
 
 func _ready():
 	pass # Replace with function body.
@@ -33,7 +34,10 @@ func _physics_process(_delta):
 	# else:
 	# 	motion.x = 0
 	if stun01 == true:
-		motion = stun_power 
+		if $LRayCast2D.is_colliding():
+			motion = stun_right
+		if $RRayCast2D.is_colliding():
+			motion = stun_left
 
 	
 	motion.x = lerp(motion.x, 0, FRICTION)
