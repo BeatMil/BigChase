@@ -31,13 +31,8 @@ func _ready():
 func _physics_process(_delta):
 	# normal attack
 	if Input.is_action_just_pressed("ui_accept"):
-		$Sprite.play("attack01")
-		var hitbox01_real = hitbox01.instance()
-		var offset = Vector2(200,0)
-		hitbox01_real.position += offset
-		add_child(hitbox01_real) # spawn hitbox
-		print("hitbox: ", hitbox01_real.position)
-		print("elesis: ", $".".position)
+		$AnimationPlayer.play("attack01")
+
 
 	if Input.is_action_pressed("ui_up"):
 		if is_on_floor():
@@ -117,10 +112,23 @@ func _on_dash_length_timer_timeout():
 	is_running = true
 
 
-func _on_Sprite_animation_finished():
-	var animation = $Sprite.animation
-	if animation == "attack01":
-		$Sprite.play("idle")
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "attack01":
+		$AnimationPlayer.play("idle")
 	
-	if animation == "idle":
-		$Sprite.stop()
+	if anim_name == "idle":
+		$AnimationPlayer.stop()
+
+func beat_great_tekken_player():
+	print("beat_great_tekken_player")
+
+
+func attack01():
+	var offset
+	if $Sprite.flip_h == true:
+		offset = Vector2(-200,0)
+	elif $Sprite.flip_h == false:
+		offset = Vector2(200,0)
+	var hitbox01_real = hitbox01.instance()
+	hitbox01_real.position += offset
+	add_child(hitbox01_real) # spawn hitbox
