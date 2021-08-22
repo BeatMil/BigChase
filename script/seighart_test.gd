@@ -7,6 +7,9 @@ var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
 
+# stun helper
+var stun01 = false
+var stun_power = Vector2(2000,-900)
 
 func _ready():
 	pass # Replace with function body.
@@ -29,5 +32,20 @@ func _physics_process(_delta):
 	# 	motion.x = lerp(motion.x, 0, FRICTION)
 	# else:
 	# 	motion.x = 0
+	if stun01 == true:
+		motion = stun_power 
+
+	
+	motion.x = lerp(motion.x, 0, FRICTION)
 	motion.y += GRAVITY
 	motion = move_and_slide(motion, UP)
+
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("attack"):
+		$stun01_timer.start()
+		stun01 = true
+
+
+func _on_stun01_timer_timeout():
+	stun01 = false

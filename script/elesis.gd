@@ -119,8 +119,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "idle":
 		$AnimationPlayer.stop()
 
-func beat_great_tekken_player():
-	print("beat_great_tekken_player")
 
 
 func attack01():

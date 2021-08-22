@@ -24,7 +24,7 @@ shape = SubResource( 1 )
 anchor_mode = 0
 
 [node name="seighart" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1776, 144 )
+position = Vector2( 912, 208 )
 
 [node name="elesis" parent="." instance=ExtResource( 1 )]
 position = Vector2( 280, 240 )
