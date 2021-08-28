@@ -163,18 +163,18 @@ func _on_stun01_timer_timeout():
 	print(\"stun01 false\")
 "
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 32.0
 height = 176.0
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 32, 120 )
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D2" type="KinematicBody2D"]
 script = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="dash_length_timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -201,7 +201,7 @@ cast_to = Vector2( 0, 300 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="stun01_timer" type="Timer" parent="."]
 wait_time = 0.2

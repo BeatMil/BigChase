@@ -92,6 +92,15 @@ func dash_left():
 		is_dashing_left = true
 
 
+func reset_dash_trigger():
+	dash_trigger_right = false
+	dash_trigger_left = false
+	is_dashing_right = false
+	is_dashing_left = false
+	is_running = false
+
+
+
 func set_run(Bool):
 	is_running = Bool
 
@@ -101,7 +110,7 @@ func _on_dash_trigger_right_timer_timeout():
 
 
 func _on_dash_trigger_left_timer_timeout():
-	dash_trigger_right = true
+	dash_trigger_left = false
 
 
 func _on_dash_length_timer_timeout():

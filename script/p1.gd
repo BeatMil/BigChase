@@ -10,7 +10,11 @@ func _physics_process(delta):
 	if Input.is_action_pressed("p1_up"):
 		$char.jump()
 
-	if Input.is_action_pressed("p1_right"):
+	# stop moving when both right and left are pressed
+	if Input.is_action_pressed("p1_right") and Input.is_action_pressed("p1_left"):
+		$char.reset_dash_trigger()
+		$char.stay_still()
+	elif Input.is_action_pressed("p1_right"):
 		$char.walk_right()
 	elif Input.is_action_pressed("p1_left"):
 		$char.walk_left()
