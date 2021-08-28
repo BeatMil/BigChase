@@ -22,7 +22,7 @@ var is_running = false
 
 
 # hitbox
-onready var hitbox01 = load("res://prefabs/hitboxes/hitbox01.tscn")
+onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
 
 
 func _ready():
@@ -132,3 +132,18 @@ func _on_dash_length_timer_timeout():
 
 func _on_downward_dash_timer_timeout():
 	can_downward_dash = false
+
+
+func play_attack01():
+	# normal attack
+	$AnimationPlayer.play("attack01")
+
+func attack01():
+	var offset
+	if $Sprite.flip_h == true:
+		offset = Vector2(-150,0)
+	elif $Sprite.flip_h == false:
+		offset = Vector2(150,0)
+	var hitbox01_real = hitbox01.instance()
+	hitbox01_real.position += offset
+	add_child(hitbox01_real) # spawn hitbox

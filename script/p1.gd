@@ -7,6 +7,9 @@ extends Node2D
 
 
 func _physics_process(delta):
+	if Input.is_action_pressed("p1_attack"):
+		$char.play_attack01()
+		
 	if Input.is_action_pressed("p1_up"):
 		$char.jump()
 
