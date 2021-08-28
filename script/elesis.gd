@@ -9,6 +9,7 @@ var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
 var DASH = 2500
+var DOWNWARD_DASH = 1000
 
 
 # dash mechanic helper
@@ -16,6 +17,7 @@ export var dash_trigger_right = false
 export var dash_trigger_left = false
 export var is_dashing_right = false
 export var is_dashing_left = false
+var can_downward_dash = false
 var is_running = false
 
 
@@ -75,6 +77,8 @@ func dash_right():
 	elif dash_trigger_right == true:
 		$dash_trigger_right_timer.stop()
 		$dash_length_timer.start()
+		$downward_dash_timer.start()
+		can_downward_dash = true
 		dash_trigger_right = false
 		is_dashing_right = true
 
@@ -88,8 +92,16 @@ func dash_left():
 	elif dash_trigger_left == true:
 		$dash_trigger_right_timer.stop()
 		$dash_length_timer.start()
+		$downward_dash_timer.start()
+		can_downward_dash = true
 		dash_trigger_right = false
 		is_dashing_left = true
+
+
+func downward_dash():
+	if can_downward_dash:
+		motion.y += DOWNWARD_DASH
+		print("downward")
 
 
 func reset_dash_trigger():
@@ -98,7 +110,6 @@ func reset_dash_trigger():
 	is_dashing_right = false
 	is_dashing_left = false
 	is_running = false
-
 
 
 func set_run(Bool):
@@ -117,3 +128,7 @@ func _on_dash_length_timer_timeout():
 	is_dashing_right = false
 	is_dashing_left = false
 	is_running = true
+
+
+func _on_downward_dash_timer_timeout():
+	can_downward_dash = false

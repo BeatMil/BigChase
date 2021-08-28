@@ -76,6 +76,10 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
+[node name="downward_dash_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 7 )
 
@@ -86,4 +90,5 @@ anims/idle = SubResource( 3 )
 [connection signal="timeout" from="dash_length_timer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="dash_trigger_right_timer" to="." method="_on_dash_trigger_right_timer_timeout"]
 [connection signal="timeout" from="dash_trigger_left_timer" to="." method="_on_dash_trigger_left_timer_timeout"]
+[connection signal="timeout" from="downward_dash_timer" to="." method="_on_downward_dash_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -32,3 +32,6 @@ func _physics_process(delta):
 		$char.set_run(false)
 	elif Input.is_action_just_released("p1_left"):
 		$char.set_run(false)
+
+	if Input.is_action_just_pressed("p1_down"):
+		$char.downward_dash()
