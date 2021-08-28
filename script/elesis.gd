@@ -56,7 +56,7 @@ func walk_left():
 
 
 func stay_still():
-	motion = Vector2.ZERO
+	motion.x = 0
 
 
 func lerp_motion_x():
