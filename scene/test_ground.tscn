@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://prefabs/jin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/elesis.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sai/ground/01.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://players/p1.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1080, 32 )
@@ -29,9 +30,6 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 528, 696 )
-
 [node name="attack_test" type="Node2D" parent="."]
 position = Vector2( 1096, 872 )
 
@@ -53,3 +51,9 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test/StaticBody2D"]
 position = Vector2( 128, 0 )
 shape = SubResource( 3 )
+
+[node name="p1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 392, 784 )
+
+[node name="char" parent="p1" instance=ExtResource( 1 )]
+position = Vector2( -24, -560 )
