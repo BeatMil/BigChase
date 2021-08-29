@@ -1,12 +1,12 @@
 extends Node2D
 
-export var hp = 5
+export var hp = 20
 var max_hp
 
 # Colors
-onready var green = load("res://scene/bar/stylebox/green.tres")
-onready var yellow = load("res://scene/bar/stylebox/yellow.tres")
-onready var red = load("res://scene/bar/stylebox/red.tres")
+onready var green = load("res://players/stylebox/green.tres")
+onready var yellow = load("res://players/stylebox/yellow.tres")
+onready var red = load("res://players/stylebox/red.tres")
 
 func _ready():
 	max_hp = hp

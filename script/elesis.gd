@@ -21,6 +21,11 @@ var can_downward_dash = false
 var is_running = false
 
 
+# stun 
+var stun01_power_left = Vector2(-1500,-1200)
+var stun01_power_right = Vector2(1500,-1200)
+var is_stunned = false
+
 # hitbox
 onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
 
@@ -147,3 +152,24 @@ func attack01():
 	var hitbox01_real = hitbox01.instance()
 	hitbox01_real.position += offset
 	add_child(hitbox01_real) # spawn hitbox
+
+
+func stun01(direction):
+	if direction == 'left':
+		motion = stun01_power_left
+	elif direction == 'right':
+		motion = stun01_power_right
+	is_stunned = true
+	$stun01_timer.start()
+
+
+func _on_stun01_timer_timeout():
+	is_stunned = false
+
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group('attack01'):
+		if area.is_in_group('left'):
+			stun01('left')
+		elif area.is_in_group('right'):
+			stun01('right')

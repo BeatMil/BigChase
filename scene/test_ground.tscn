@@ -4,15 +4,13 @@
 [ext_resource path="res://sai/ground/01.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://players/p1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://players/hp_bar.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1080, 32 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 48, 32 )
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 72.0
 
 [node name="test_ground" type="Node2D"]
 
@@ -31,10 +29,14 @@ shape = SubResource( 1 )
 anchor_mode = 0
 
 [node name="attack_test" type="Node2D" parent="."]
-position = Vector2( 1096, 872 )
+position = Vector2( 1528, 872 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Area2D" type="Area2D" parent="attack_test" groups=[
-"attack",
+"attack01",
+"left",
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test/Area2D"]
@@ -46,14 +48,29 @@ position = Vector2( 6.10352e-05, 0 )
 scale = Vector2( 1.625, 1 )
 texture = ExtResource( 3 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="attack_test"]
+[node name="attack_test2" type="Node2D" parent="."]
+position = Vector2( 264, 872 )
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test/StaticBody2D"]
-position = Vector2( 128, 0 )
-shape = SubResource( 3 )
+[node name="Area2D" type="Area2D" parent="attack_test2" groups=[
+"attack01",
+"right",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test2/Area2D"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="attack_test2"]
+modulate = Color( 0.752941, 0.176471, 0.176471, 1 )
+position = Vector2( 6.10352e-05, 0 )
+scale = Vector2( 1.625, 1 )
+texture = ExtResource( 3 )
 
 [node name="p1" parent="." instance=ExtResource( 4 )]
-position = Vector2( 392, 784 )
 
 [node name="char" parent="p1" instance=ExtResource( 1 )]
-position = Vector2( -24, -560 )
+position = Vector2( 632, -368 )
+
+[node name="hp_bar" parent="p1" instance=ExtResource( 5 )]
