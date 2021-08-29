@@ -9,6 +9,8 @@ onready var yellow = load("res://players/stylebox/yellow.tres")
 onready var red = load("res://players/stylebox/red.tres")
 
 func _ready():
+	var ok = $"../char".connect("stunned01", self, "_on_char_stunned01")
+	print("connect hp_bar to char status: ", ok)
 	max_hp = hp
 	to_yellow()
 	update_bar()
@@ -50,3 +52,6 @@ func to_yellow():
 func to_red():
 	$ProgressBar.set("custom_styles/fg", red)
 
+
+func _on_char_stunned01():
+	decrease_hp(1)

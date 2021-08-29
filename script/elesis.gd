@@ -29,6 +29,8 @@ var is_stunned = false
 # hitbox
 onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
 
+# signal
+signal stunned01 
 
 func _ready():
 	pass # Replace with function body.
@@ -169,6 +171,7 @@ func _on_stun01_timer_timeout():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group('attack01'):
+		emit_signal("stunned01")
 		if area.is_in_group('left'):
 			stun01('left')
 		elif area.is_in_group('right'):

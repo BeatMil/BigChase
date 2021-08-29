@@ -70,7 +70,7 @@ texture = ExtResource( 3 )
 
 [node name="p1" parent="." instance=ExtResource( 4 )]
 
+[node name="hp_bar" parent="p1" instance=ExtResource( 5 )]
+
 [node name="char" parent="p1" instance=ExtResource( 1 )]
 position = Vector2( 632, -368 )
-
-[node name="hp_bar" parent="p1" instance=ExtResource( 5 )]
