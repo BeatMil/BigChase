@@ -9,8 +9,12 @@ var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
 var DASH = 2500
-var DOWNWARD_DASH = 1000
+var DOWNWARD_DASH = 2000
 
+
+# sfx
+onready var HURTSFX = preload("res://sounds/hurt.wav")
+onready var JUMPSFX = preload("res://sounds/jump.wav")
 
 # dash mechanic helper
 export var dash_trigger_right = false
@@ -72,6 +76,8 @@ func lerp_motion_x():
 
 func jump():
 	if is_on_floor():
+		$AudioStreamPlayer2D.set_stream(JUMPSFX)
+		$AudioStreamPlayer2D.play()
 		motion.y -= JUMP_POWER
 
 
@@ -172,6 +178,8 @@ func _on_stun01_timer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.is_in_group('attack01'):
 		emit_signal("stunned01")
+		$AudioStreamPlayer2D.set_stream(HURTSFX)
+		$AudioStreamPlayer2D.play()
 		if area.is_in_group('left'):
 			stun01('left')
 		elif area.is_in_group('right'):
