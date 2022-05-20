@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://script/menu.gd" type="Script" id=1]
+
+[node name="menu" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1152.0
+margin_top = 128.0
+margin_right = 1240.0
+margin_bottom = 168.0
+rect_scale = Vector2( 3.68909, 3.34625 )
+text = "keybind"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="up_label" type="Label" parent="."]
+margin_left = 1232.0
+margin_top = 400.0
+margin_right = 1272.0
+margin_bottom = 414.0
+rect_scale = Vector2( 3.49474, 3.88186 )
+text = "jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left_label" type="Label" parent="."]
+margin_left = 984.0
+margin_top = 544.0
+margin_right = 1024.0
+margin_bottom = 558.0
+rect_scale = Vector2( 4.61401, 5.25758 )
+text = "left"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right_label" type="Label" parent="."]
+margin_left = 1448.0
+margin_top = 536.0
+margin_right = 1488.0
+margin_bottom = 550.0
+rect_scale = Vector2( 6.09488, 4.972 )
+text = "right"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="down_label" type="Label" parent="."]
+margin_left = 1224.0
+margin_top = 712.0
+margin_right = 1264.0
+margin_bottom = 726.0
+rect_scale = Vector2( 3.63805, 5.15858 )
+text = "down"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="attack_label" type="Label" parent="."]
+margin_left = 1216.0
+margin_top = 544.0
+margin_right = 1256.0
+margin_bottom = 558.0
+rect_scale = Vector2( 4.01868, 5.07796 )
+text = "attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
