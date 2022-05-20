@@ -4,9 +4,9 @@ export var hp = 20
 var max_hp
 
 # Colors
-onready var green = load("res://players/stylebox/green.tres")
-onready var yellow = load("res://players/stylebox/yellow.tres")
-onready var red = load("res://players/stylebox/red.tres")
+onready var green = load("res://media/stylebox/green.tres")
+onready var yellow = load("res://media/stylebox/yellow.tres")
+onready var red = load("res://media/stylebox/red.tres")
 
 func _ready():
 	var ok = $"../char".connect("stunned01", self, "_on_char_stunned01")
@@ -14,6 +14,17 @@ func _ready():
 	max_hp = hp
 	to_yellow()
 	update_bar()
+
+
+func _process(delta):
+	pass
+
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed("heal"):
+		increase_hp(2)
+		pass
+	pass
 
 
 func set_hp(amount : int):
@@ -55,3 +66,8 @@ func to_red():
 
 func _on_char_stunned01():
 	decrease_hp(1)
+
+
+func _on_Button_pressed():
+	increase_hp(3)
+	pass # Replace with function body.

@@ -1,4 +1,5 @@
- extends KinematicBody2D
+# elesis.gd 
+extends KinematicBody2D
 
 # config
 export var motion = Vector2() # final resuilt of movement
@@ -13,8 +14,10 @@ var DOWNWARD_DASH = 2000
 
 
 # sfx
-onready var HURTSFX = preload("res://sounds/hurt.wav")
-onready var JUMPSFX = preload("res://sounds/jump.wav")
+onready var HURTSFX = preload("res://media/sounds/hurt.wav")
+onready var JUMPSFX = preload("res://media/sounds/jump.wav")
+onready var SLASHSFX = preload("res://media/sounds/slash.wav")
+
 
 # dash mechanic helper
 export var dash_trigger_right = false
@@ -35,6 +38,7 @@ onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
 
 # signal
 signal stunned01 
+
 
 func _ready():
 	pass # Replace with function body.
@@ -71,6 +75,9 @@ func stay_still():
 
 
 func lerp_motion_x():
+	"""
+	smooth from run to stay still
+	"""
 	motion.x = lerp(motion.x, 0, FRICTION)
 
 

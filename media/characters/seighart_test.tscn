@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sai/seighart/seighart.png" type="Texture" id=1]
 [ext_resource path="res://script/seighart_test.gd" type="Script" id=2]
-[ext_resource path="res://scene/bar/hp_bar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 24.0
@@ -41,9 +40,8 @@ rotation = -1.5708
 enabled = true
 cast_to = Vector2( 0, 300 )
 
-[node name="hp_bar" parent="." instance=ExtResource( 3 )]
-position = Vector2( -96, -160 )
-hp = 10
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="stun01_timer" to="." method="_on_stun01_timer_timeout"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

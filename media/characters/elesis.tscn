@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://script/elesis.gd" type="Script" id=1]
 [ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack05.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://sai/elesis/elesis.png" type="Texture" id=5]
 [ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack02.png" type="Texture" id=6]
 [ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack03.png" type="Texture" id=7]
+[ext_resource path="res://media/sounds/slash.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 32.0
@@ -43,6 +44,20 @@ tracks/1/keys = {
 "args": [  ],
 "method": "attack01"
 } ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("sfx_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0.1 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -99,6 +114,8 @@ wait_time = 0.3
 one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="sfx_attack" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="dash_length_timer" to="." method="_on_dash_length_timer_timeout"]

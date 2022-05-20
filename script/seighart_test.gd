@@ -1,3 +1,4 @@
+# seightart.gd
 extends KinematicBody2D
 
 export var motion = Vector2() # final resuilt of movement
@@ -8,7 +9,7 @@ var JUMP_POWER = 2000
 var FRICTION = 0.2
 
 # stun helper
-var stun01 = false
+var is_stunned = false
 var stun_right = Vector2(2000,-900)
 var stun_left = Vector2(-2000,-900)
 
@@ -33,24 +34,35 @@ func _physics_process(_delta):
 	# 	motion.x = lerp(motion.x, 0, FRICTION)
 	# else:
 	# 	motion.x = 0
-	if stun01 == true:
+	if is_stunned == true:
 		if $LRayCast2D.is_colliding():
 			motion = stun_right
 		if $RRayCast2D.is_colliding():
 			motion = stun_left
 
 	
-	motion.x = lerp(motion.x, 0, FRICTION)
+	# motion.x = lerp(motion.x, 0, FRICTION)
 	motion.y += GRAVITY
 	motion = move_and_slide(motion, UP)
 
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("attack"):
-		$hp_bar.decrease_hp(1)
 		$stun01_timer.start()
-		stun01 = true
+		is_stunned = true
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	motion = Vector2.ZERO
+	$".".global_position = Vector2(1000,100)
+
+
+func lerp_motion_x():
+	"""
+	smooth from run to stay still
+	"""
+	motion.x = lerp(motion.x, 0, FRICTION)
 
 
 func _on_stun01_timer_timeout():
-	stun01 = false
+	is_stunned = false

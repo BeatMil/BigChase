@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/hurt.wav-8b8d4b6294ef6393060b0c1cc25a5492.sample"
+path="res://.import/slash.wav-3ee28a29d85e8e8bbf5841b9172489b7.sample"
 
 [deps]
 
-source_file="res://sounds/hurt.wav"
-dest_files=[ "res://.import/hurt.wav-8b8d4b6294ef6393060b0c1cc25a5492.sample" ]
+source_file="res://media/sounds/slash.wav"
+dest_files=[ "res://.import/slash.wav-3ee28a29d85e8e8bbf5841b9172489b7.sample" ]
 
 [params]
 
