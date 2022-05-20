@@ -50,6 +50,8 @@ func update_bar():
 	elif (float(hp) / max_hp) < 0.8:
 		to_yellow()
 	$ProgressBar.value = hp
+	if hp <= 0:
+		$"../char".ded()
 
 
 func to_green():
@@ -70,4 +72,3 @@ func _on_char_stunned01():
 
 func _on_Button_pressed():
 	increase_hp(3)
-	pass # Replace with function body.

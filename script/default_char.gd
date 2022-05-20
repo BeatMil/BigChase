@@ -1,4 +1,4 @@
-# elesis.gd 
+# default_char.gd 
 extends KinematicBody2D
 
 # config
@@ -17,6 +17,7 @@ var DOWNWARD_DASH = 2000
 onready var HURTSFX = preload("res://media/sounds/hurt.wav")
 onready var JUMPSFX = preload("res://media/sounds/jump.wav")
 onready var SLASHSFX = preload("res://media/sounds/slash.wav")
+
 
 # dash mechanic helper
 export var dash_trigger_right = false
@@ -120,7 +121,6 @@ func dash_left():
 func downward_dash():
 	if can_downward_dash:
 		motion.y += DOWNWARD_DASH
-		print("downward")
 
 
 func reset_dash_trigger():
@@ -157,6 +157,7 @@ func play_attack01():
 	# normal attack
 	$AnimationPlayer.play("attack01")
 
+
 func attack01():
 	var offset
 	if $Sprite.flip_h == true:
@@ -165,6 +166,10 @@ func attack01():
 		offset = Vector2(150,0)
 	var hitbox01_real = hitbox01.instance()
 	hitbox01_real.position += offset
+	if $Sprite.flip_h == true:
+		hitbox01_real.get_node("Area2D").add_to_group("left")
+	elif $Sprite.flip_h == false:
+		hitbox01_real.get_node("Area2D").add_to_group("right")
 	add_child(hitbox01_real) # spawn hitbox
 
 
@@ -175,6 +180,7 @@ func stun01(direction):
 		motion = stun01_power_right
 	is_stunned = true
 	$stun01_timer.start()
+	print("======================================")
 
 
 func _on_stun01_timer_timeout():
@@ -190,3 +196,13 @@ func _on_Area2D_area_entered(area):
 			stun01('left')
 		elif area.is_in_group('right'):
 			stun01('right')
+
+
+func ded():
+	$AnimationPlayer.play("ded")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "ded":
+		get_parent().queue_free()
+		print("ded")
