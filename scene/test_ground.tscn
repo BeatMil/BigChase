@@ -37,10 +37,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Area2D" type="Area2D" parent="attack_test" groups=[
-"attack01",
-"left",
-]]
+[node name="Area2D" type="Area2D" parent="attack_test" groups=["attack01", "left"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test/Area2D"]
 shape = SubResource( 2 )
@@ -57,10 +54,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Area2D" type="Area2D" parent="attack_test2" groups=[
-"attack01",
-"right",
-]]
+[node name="Area2D" type="Area2D" parent="attack_test2" groups=["attack01", "right"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_test2/Area2D"]
 shape = SubResource( 2 )
