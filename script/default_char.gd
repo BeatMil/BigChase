@@ -180,7 +180,6 @@ func stun01(direction):
 		motion = stun01_power_right
 	is_stunned = true
 	$stun01_timer.start()
-	print("======================================")
 
 
 func _on_stun01_timer_timeout():
@@ -205,4 +204,3 @@ func ded():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "ded":
 		get_parent().queue_free()
-		print("ded")

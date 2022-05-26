@@ -14,6 +14,12 @@ config/name="BigChase"
 run/main_scene="res://scene/menu.tscn"
 config/icon="res://sai/elesis/elesis.png"
 
+[autoload]
+
+Network="*res://script/network.gd"
+Player="*res://enities/players/Player.tscn"
+Gamestate="*res://script/gamestate.gd"
+
 [display]
 
 window/size/width=1920
