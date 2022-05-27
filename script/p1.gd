@@ -5,10 +5,7 @@ extends Node2D
 # put character node inside P1 to control the character
 ########################################################
 
-puppet var puppet_position = Vector2(0, 0) setget puppet_position_set
-puppet var puppet_velocity = Vector2()
-
-onready var tween = $Tween
+puppet var puppet_pos = Vector2()
 
 
 func _physics_process(delta):
@@ -45,16 +42,25 @@ func _physics_process(delta):
 				
 			if Input.is_action_just_pressed("p1_down"):
 				$char.downward_dash()
-
-
-func puppet_position_set(new_value) -> void:
-	puppet_position = new_value
+#		rset("puppet_pos", $char.position)
+		rset_unreliable("puppet_pos", $char.position)
+	else:
+		$char.position = puppet_pos
 	
-	tween.interpolate_property(self, "global_position", global_position, puppet_position, 0.1)
-	tween.start()
+	if not is_network_master():
+		puppet_pos = position # To avoid jitter
 
 
-func _on_Network_tick_rate_timeout():
-	if is_network_master():
-		rset_config("global_position", MultiplayerAPI.RPC_MODE_MASTER)
-		rset_unreliable("global_position", global_position)
+func _ready():
+	puppet_pos = $char.position
+
+#func puppet_position_set(new_value) -> void:
+#	puppet_position = new_value
+#
+#	tween.interpolate_property(self, "global_position", global_position, puppet_position, 0.1)
+#	tween.start()
+
+
+#func _on_Network_tick_rate_timeout():
+#	if is_network_master():
+#		rset_unreliable("puppet_position", global_position)

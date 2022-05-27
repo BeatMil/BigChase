@@ -6,12 +6,4 @@
 [node name="p1_node2d" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Network_tick_rate" type="Timer" parent="."]
-wait_time = 0.03
-autostart = true
-
-[node name="Tween" type="Tween" parent="."]
-
 [node name="char" parent="." instance=ExtResource( 1 )]
-
-[connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]

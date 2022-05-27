@@ -18,7 +18,6 @@ config/icon="res://sai/elesis/elesis.png"
 
 Network="*res://script/network.gd"
 Player="*res://enities/players/Player.tscn"
-Gamestate="*res://script/gamestate.gd"
 
 [display]
 

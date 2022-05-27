@@ -39,10 +39,9 @@ func _on_Button_pressed():
 
 func _on_Host_Button_pressed():
 	$ui.visible = false
-	Gamestate.host_game("beat")
-	Gamestate.spawn_player(get_tree().get_network_unique_id())
+	Network.host()
 
 
 func _on_Join_button_pressed():
 	$ui.visible = false
-	Gamestate.join_game($ui/Ip_TextEdit.text, "bob")
+	Network.join($ui/Ip_TextEdit.text)

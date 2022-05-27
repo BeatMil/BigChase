@@ -1,63 +1,50 @@
 extends Node
 
 const PORT = 50021
+const MAX_PLAYER = 2
 onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
+onready var PLAYER = load("res://enities/players/p1.tscn")
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
-
-
-func host() -> int:
-	var network = NetworkedMultiplayerENet.new()
-	network.create_server(PORT, 2)
-	get_tree().set_network_peer(network)
-	var is_server = get_tree().is_network_server()
-	var network_id = network.get_unique_id()
-	print("is_server: ", is_server)
-	print("network_id: ", network.get_unique_id())
-	print(IP.get_local_addresses())
+	get_tree().connect("network_peer_connected", self, "player_connected")
+	get_tree().connect("network_peer_disconnected", self, "player_disconnected")
+	get_tree().connect("connected_to_server", self, "connected_to_server")
 	
-	# connect signals
-	var peer_connected_signal = network.connect("peer_connected",self,"_peer_connected")
-	var peer_disconnected_signal = network.connect("peer_disconnected",self,"_peer_disconnected")
-	print("peer_connected_status: ", peer_connected_signal)
-	print("peer_disconnected_status: ", peer_disconnected_signal)
-	return network_id
 
-
-func join(ip_address: String) -> int:
+func host():
 	var network = NetworkedMultiplayerENet.new()
-	var connection_status = network.create_client(ip_address, PORT)
+	network.create_server(PORT, MAX_PLAYER)
 	get_tree().set_network_peer(network)
-	var network_id = network.get_unique_id()
-	var connection_failed_signal = network.connect("connection_failed",self,"_on_connection_failed")
-	get_tree().multiplayer.connect("network_peer_packet",self,"_on_packet_received")
-	print(IP.get_local_addresses())
-	print("network_id: ", network.get_unique_id())
-	print("connection_failed_signal: ", connection_failed_signal)
-	print("connection_status : ", connection_status)
-	return network_id
+	spawn_player(get_tree().get_network_unique_id())
 
 
-func _on_connection_failed():
-	print("connection failed...")
+func join(ip: String):
+	var network = NetworkedMultiplayerENet.new()
+	network.create_client(ip, PORT)
+	get_tree().set_network_peer(network)
 
 
-func _peer_connected(id):
-#	$user_count_label.text = "Total Users:" + str(get_tree().get_network_connected_peers().size())
-	print("peer connected! ", id)
-	instance_player(id, FOOK)
+# sever side
+func player_connected(id):
+	print("player connected: ", id)
+	spawn_player(id)
 
 
-func _peer_disconnected(id):
-#	$user_count_label.text = "Total Users:" + str(get_tree().get_network_connected_peers().size())
-	print("peer disconnected!", id)
+# sever side
+func player_disconnected(id):
+	print("player disconnected: ", id)
 
 
-func instance_player(network_id: int, entity: Object) -> void:
-	var player = entity.instance()
-	player.global_position = Vector2(900, 300)
-	player.set_network_master(network_id)
+# client only
+func connected_to_server():
+	# spawn client side player here
+	spawn_player(get_tree().get_network_unique_id())
+
+
+func spawn_player(id: int):
+	var player = PLAYER.instance()
+	player.position = Vector2(600, 600)
+	player.set_network_master(id)
 	Player.add_child(player)
