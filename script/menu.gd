@@ -19,6 +19,7 @@ func _ready():
 	ev2.scancode = KEY_B
 	InputMap.action_add_event("p1_attack", ev)
 	InputMap.action_add_event("p1_attack", ev2)
+	$ui/Host_Button.grab_focus()
 
 
 func _input(event):

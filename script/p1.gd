@@ -6,6 +6,7 @@ extends Node2D
 ########################################################
 
 puppet var puppet_pos = Vector2()
+puppet var puppet_flip_h = true
 
 
 func _physics_process(delta):
@@ -42,10 +43,12 @@ func _physics_process(delta):
 				
 			if Input.is_action_just_pressed("p1_down"):
 				$char.downward_dash()
-#		rset("puppet_pos", $char.position)
-		rset_unreliable("puppet_pos", $char.position)
+		rset("puppet_pos", $char.position)
+#		rset("puppet_flip_h", $char/Sprite.flip_h)
+#		rset_unreliable("puppet_pos", $char.position)
 	else:
 		$char.position = puppet_pos
+#		$char/Sprite.flip_h = puppet_flip_h
 	
 	if not is_network_master():
 		puppet_pos = position # To avoid jitter
@@ -53,7 +56,7 @@ func _physics_process(delta):
 
 func _ready():
 	puppet_pos = $char.position
-
+#	puppet_flip_h = $char/Sprite.flip_h
 #func puppet_position_set(new_value) -> void:
 #	puppet_position = new_value
 #
