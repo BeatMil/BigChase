@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # config
-const WALK_SPEED = 1000
+const WALK_SPEED = 600
 const DASH_SPEED = 2500
 const DOWNWARD_DASH = 2000
 const FRICTION = 0.2

@@ -6,14 +6,18 @@ extends Node2D
 ########################################################
 
 puppet var puppet_pos = Vector2()
+puppet var puppet_flip_h = false
 
 
 func _physics_process(delta):
 	if is_network_master():
+		if Input.is_action_pressed("p1_up"):
+			$char.jump()
+
 		# stop moving when both right and left are pressed
 		if Input.is_action_pressed("p1_right") and Input.is_action_pressed("p1_left"):
 			$char.lerp_motion_x()
-			$char.reset_dash()
+			$char.reset_dash_trigger()
 		elif Input.is_action_pressed("p1_right"):
 			$char.walk_right()
 		elif Input.is_action_pressed("p1_left"):
@@ -22,22 +26,24 @@ func _physics_process(delta):
 			$char.lerp_motion_x()
 		
 		if Input.is_action_just_pressed("p1_right"):
-			$char.check_dash(true)
+			$char.dash_right()
+		elif Input.is_action_just_pressed("p1_left"):
+			$char.dash_left()
+		elif Input.is_action_just_released("p1_right"):
+			$char.set_run(false)
+		elif Input.is_action_just_released("p1_left"):
+			$char.set_run(false)
 
-		if Input.is_action_just_pressed("p1_left"):
-			$char.check_dash(false)
-
-		if Input.is_action_pressed("p1_up"):
-			$char.jump()
-		
 		if Input.is_action_just_pressed("p1_down"):
-			$char.downward()
+			$char.downward_dash()
 
 		rset("puppet_pos", $char.position)
+		rset("puppet_flip_h", $char/Sprite.flip_h)
 #		rset("puppet_flip_h", $char/Sprite.flip_h)
 #		rset_unreliable("puppet_pos", $char.position)
 	else:
 		$char.position = puppet_pos
+		$char/Sprite.flip_h = puppet_flip_h
 #		$char/Sprite.flip_h = puppet_flip_h
 	
 #	if not is_network_master():
@@ -46,6 +52,7 @@ func _physics_process(delta):
 
 func _ready():
 	puppet_pos = $char.position
+	puppet_flip_h = $char/Sprite.flip_h
 #	puppet_flip_h = $char/Sprite.flip_h
 #func puppet_position_set(new_value) -> void:
 #	puppet_position = new_value

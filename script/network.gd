@@ -45,6 +45,7 @@ func connected_to_server():
 
 
 func spawn_player(id: int):
+	# var player = PLAYER.instance()
 	var player = PTEST.instance()
 	player.position = Vector2(600, 600)
 	player.set_network_master(id)
