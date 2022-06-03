@@ -36,8 +36,7 @@ func player_connected(id):
 # sever side
 func player_disconnected(id):
 	print("player disconnected: ", id)
-	if Player.has_node(str(id)):
-		Player.get_node(str(id)).queue_free()
+	Player.get_node_or_null(str(id)).queue_free()
 
 
 # client only
