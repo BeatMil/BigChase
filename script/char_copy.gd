@@ -158,7 +158,7 @@ func play_attack01():
 	$AnimationPlayer.play("attack01")
 
 
-func attack01():
+remotesync func _attack01():
 	var offset
 	if $Sprite.flip_h == true:
 		offset = Vector2(-150,0)
@@ -173,13 +173,17 @@ func attack01():
 	add_child(hitbox01_real) # spawn hitbox
 
 
+func attack01(): # let p_test call this
+	rpc("_attack01")
+
+
 func stun01(direction):
 	if direction == 'left':
 		motion = stun01_power_left
 	elif direction == 'right':
 		motion = stun01_power_right
 	is_stunned = true
-	$stun01_timer.start()
+	$StunTimer.start()
 
 
 func _on_stun01_timer_timeout():
@@ -188,9 +192,9 @@ func _on_stun01_timer_timeout():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group('attack01'):
-		emit_signal("stunned01")
-		$AudioStreamPlayer2D.set_stream(HURTSFX)
-		$AudioStreamPlayer2D.play()
+#		emit_signal("stunned01")
+##		$AudioStreamPlayer2D.set_stream(HURTSFX)
+##		$AudioStreamPlayer2D.play()
 		if area.is_in_group('left'):
 			stun01('left')
 		elif area.is_in_group('right'):
@@ -204,3 +208,8 @@ func ded():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "ded":
 		get_parent().queue_free()
+
+
+func _on_StunTimer_timeout():
+	is_stunned = false
+

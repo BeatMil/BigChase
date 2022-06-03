@@ -16,10 +16,7 @@ texture = ExtResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"attack",
-"attack01",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["attack", "attack01"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
