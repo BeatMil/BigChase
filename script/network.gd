@@ -36,6 +36,8 @@ func player_connected(id):
 # sever side
 func player_disconnected(id):
 	print("player disconnected: ", id)
+	if Player.has_node(str(id)):
+		Player.get_node(str(id)).queue_free()
 
 
 # client only
@@ -48,5 +50,6 @@ func spawn_player(id: int):
 	# var player = PLAYER.instance()
 	var player = PTEST.instance()
 	player.position = Vector2(600, 600)
+	player.name = str(id)
 	player.set_network_master(id)
 	Player.add_child(player)
