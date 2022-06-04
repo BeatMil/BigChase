@@ -161,6 +161,10 @@ func _on_downward_dash_timer_timeout():
 
 
 func play_attack01():
+	rpc("_play_attack01")
+
+
+remotesync func _play_attack01():
 	# normal attack
 	is_recovery = true
 	$AnimationPlayer.play("attack01")
