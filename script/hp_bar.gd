@@ -21,13 +21,6 @@ func _process(delta):
 	pass
 
 
-func _physics_process(delta):
-	if Input.is_action_just_pressed("heal"):
-		increase_hp(2)
-		pass
-	pass
-
-
 func set_hp(amount : int):
 	hp = amount
 	update_bar()
