@@ -235,7 +235,7 @@ texture = ExtResource( 2 )
 position = Vector2( 952, 992 )
 shape = SubResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="DedWallR" groups=["attack", "attack01", "right"]]
+[node name="Area2D" type="Area2D" parent="DedWallR" groups=["attack", "attack01", "left"]]
 position = Vector2( 6.10352e-05, -32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DedWallR/Area2D"]
