@@ -4,8 +4,8 @@ extends KinematicBody2D
 # config
 export var motion = Vector2() # final resuilt of movement
 var UP = Vector2(0,-1) # for move_and_slide()
-var WALK_SPEED = 600
-var RUN_SPEED = 1200
+var WALK_SPEED = 300
+var RUN_SPEED = 600
 var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
