@@ -18,12 +18,7 @@ const MENU = "res://scene/menu.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var ev = InputEventKey.new()
-	ev.scancode = KEY_A
-	var ev2 = InputEventKey.new()
-	ev2.scancode = KEY_B
-	InputMap.action_add_event("p1_attack", ev)
-	InputMap.action_add_event("p1_attack", ev2)
+	pass
 #	$ui/Host_Button.grab_focus()
 
 
