@@ -13,7 +13,7 @@ const PORT = 50021
 onready var PLAYER = load("res://enities/players/p1.tscn")
 onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
-
+const MENU = "res://scene/menu.tscn"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -78,6 +78,13 @@ func _input(event):
 		$ui/attack_label.modulate = Color(0.4, 1, 0.4)
 	elif Input.is_action_just_released("p1_attack"):
 		$ui/attack_label.modulate = Color(1, 1, 1)
+
+	if Input.is_action_just_pressed("ui_cancel"):
+		for n in Player.get_children():
+			Player.remove_child(n)
+			n.queue_free()
+		get_tree().change_scene(MENU)
+		
 
 
 func _on_Button_pressed():

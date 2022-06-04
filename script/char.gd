@@ -9,7 +9,7 @@ var RUN_SPEED = 1200
 var GRAVITY = 100
 var JUMP_POWER = 2000
 var FRICTION = 0.2
-var DASH = 2500
+var DASH = 1600
 var DOWNWARD_DASH = 2000
 
 
@@ -26,6 +26,7 @@ export var is_dashing_right = false
 export var is_dashing_left = false
 var can_downward_dash = false
 var is_running = false
+var is_ded = false
 
 
 # stun 
@@ -37,11 +38,13 @@ var is_stunned = false
 onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
 
 # signal
-signal stunned01 
+signal stunned01
+signal can_respawn
 
 
 func _ready():
-	pass # Replace with function body.
+	var ok = connect("can_respawn", get_parent(), "can_respawn")
+	print(ok)
 
 
 func _physics_process(_delta):
@@ -49,8 +52,10 @@ func _physics_process(_delta):
 		motion.x =  DASH
 	elif is_dashing_left:
 		motion.x =  -DASH
+	
+	if is_stunned:
+		lerp_motion_x()
 
-	# lerp_motion_x()
 	motion.y += GRAVITY
 	motion = move_and_slide(motion, UP)
 
@@ -156,6 +161,7 @@ func _on_downward_dash_timer_timeout():
 
 func play_attack01():
 	# normal attack
+	is_stunned = true
 	$AnimationPlayer.play("attack01")
 
 
@@ -204,11 +210,15 @@ func _on_Area2D_area_entered(area):
 
 func ded():
 	$AnimationPlayer.play("ded")
+	is_ded = true
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "ded":
-		get_parent().queue_free()
+		emit_signal("can_respawn")
+		queue_free()
+	elif anim_name == "attack01":
+		is_stunned = false
 
 
 func _on_StunTimer_timeout():

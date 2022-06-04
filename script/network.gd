@@ -13,7 +13,7 @@ func _ready():
 	get_tree().connect("network_peer_connected", self, "player_connected")
 	get_tree().connect("network_peer_disconnected", self, "player_disconnected")
 	get_tree().connect("connected_to_server", self, "connected_to_server")
-	
+
 
 func host():
 	var network = NetworkedMultiplayerENet.new()
@@ -27,6 +27,9 @@ func join(ip: String):
 	network.create_client(ip, PORT)
 	get_tree().set_network_peer(network)
 
+
+remote func register_player():
+	pass
 
 # sever side
 func player_connected(id):
@@ -44,17 +47,15 @@ func player_disconnected(id):
 
 # client only
 func connected_to_server():
-	# spawn client side player here
-#	var id = get_tree().get_network_unique_id()
-#	rpc_id(id, "spawn_player", id, color)
+	# spawn player from players_alive[]
 	spawn_player(get_tree().get_network_unique_id())
 
 
-func spawn_player(id: int):
+remotesync func spawn_player(id: int):
 	# var player = PLAYER.instance()
 	var player = PUSER.instance()
 	player.get_node("char/Sprite").modulate = color
-#	player.modulate = color
+	#player.modulate = color
 	player.position = Vector2(600, 600)
 	player.name = str(id)
 	player.set_network_master(id)

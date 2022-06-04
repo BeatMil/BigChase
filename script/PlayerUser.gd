@@ -8,53 +8,59 @@ extends Node2D
 puppet var puppet_pos = Vector2()
 puppet var puppet_flip_h = false
 puppet var puppet_color = Color(1, 1, 1)
-
+var can_respawn_bool = false
 
 func _physics_process(delta):
 	if is_network_master():
-		if not $char.is_stunned:
-			if Input.is_action_pressed("p1_up"):
-				$char.jump()
+		if get_node_or_null("char"):
+			if not $char.is_stunned and not $char.is_ded:
+				if Input.is_action_pressed("p1_up"):
+					$char.jump()
 
-			# stop moving when both right and left are pressed
-			if Input.is_action_pressed("p1_right") and Input.is_action_pressed("p1_left"):
-				$char.lerp_motion_x()
-				$char.reset_dash_trigger()
-			elif Input.is_action_pressed("p1_right"):
-				$char.walk_right()
-			elif Input.is_action_pressed("p1_left"):
-				$char.walk_left()
-			else:
-				$char.lerp_motion_x()
-			
-			if Input.is_action_just_pressed("p1_right"):
-				$char.dash_right()
-			elif Input.is_action_just_pressed("p1_left"):
-				$char.dash_left()
-			elif Input.is_action_just_released("p1_right"):
-				$char.set_run(false)
-			elif Input.is_action_just_released("p1_left"):
-				$char.set_run(false)
+				# stop moving when both right and left are pressed
+				if Input.is_action_pressed("p1_right") and Input.is_action_pressed("p1_left"):
+					$char.lerp_motion_x()
+					$char.reset_dash_trigger()
+				elif Input.is_action_pressed("p1_right"):
+					$char.walk_right()
+				elif Input.is_action_pressed("p1_left"):
+					$char.walk_left()
+				else:
+					$char.lerp_motion_x()
+				
+				if Input.is_action_just_pressed("p1_right"):
+					$char.dash_right()
+				elif Input.is_action_just_pressed("p1_left"):
+					$char.dash_left()
+				elif Input.is_action_just_released("p1_right"):
+					$char.set_run(false)
+				elif Input.is_action_just_released("p1_left"):
+					$char.set_run(false)
 
-			if Input.is_action_just_pressed("p1_down"):
-				$char.downward_dash()
-			
+				if Input.is_action_just_pressed("p1_down"):
+					$char.downward_dash()
+				
+				if Input.is_action_just_pressed("p1_attack"):
+					$char.play_attack01()
+
+			rset_unreliable("puppet_pos", $char.position)
+			rset_unreliable("puppet_flip_h", $char/Sprite.flip_h)
+			rset_unreliable("puppet_color", $char/Sprite.modulate)
+
+		if can_respawn_bool:
 			if Input.is_action_just_pressed("p1_attack"):
-				$char.attack01()
-
-		rset_unreliable("puppet_pos", $char.position)
-		rset_unreliable("puppet_flip_h", $char/Sprite.flip_h)
-		rset_unreliable("puppet_color", $char/Sprite.modulate)
-		
-#		rset("puppet_flip_h", $char/Sprite.flip_h)
-#		rset_unreliable("puppet_pos", $char.position)
+				can_respawn_bool = false
+				Network.rpc("spawn_player", get_tree().get_network_unique_id())
+#				Network.spawn_player(get_tree().get_network_unique_id())
 	else:
-		$char.position = puppet_pos
-		$char/Sprite.flip_h = puppet_flip_h
-		$char/Sprite.modulate = puppet_color
-		
-#	if not is_network_master():
-#		puppet_pos = position # To avoid jitter
+		if get_node_or_null("char"):
+			$char.position = puppet_pos
+			$char/Sprite.flip_h = puppet_flip_h
+			$char/Sprite.modulate = puppet_color
+
+
+func can_respawn():
+	can_respawn_bool = true
 
 
 func _ready():

@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://sai/elesis/elesis.png" type="Texture" id=1]
+[ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack05.png" type="Texture" id=1]
 [ext_resource path="res://enities/players/new_template_char.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/char.gd" type="Script" id=3]
+[ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack01.png" type="Texture" id=4]
+[ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack04.png" type="Texture" id=5]
+[ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack02.png" type="Texture" id=6]
+[ext_resource path="res://sai/elesis/normal_attack01/elesis_normal_attack03.png" type="Texture" id=7]
 [ext_resource path="res://media/sounds/ded.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -21,6 +25,49 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "attack01"
+length = 0.5
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.04, 0.06, 0.08 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack01"
+} ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -60,7 +107,7 @@ script = ExtResource( 3 )
 position = Vector2( 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
-texture = ExtResource( 1 )
+texture = ExtResource( 6 )
 
 [node name="dash_length_timer" type="Timer" parent="." index="4"]
 wait_time = 0.1
@@ -87,6 +134,7 @@ wait_time = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
 anims/RESET = SubResource( 2 )
+anims/attack01 = SubResource( 4 )
 anims/ded = SubResource( 3 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="12"]
@@ -97,3 +145,4 @@ stream = ExtResource( 8 )
 [connection signal="timeout" from="dash_trigger_left_timer" to="." method="_on_dash_trigger_left_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
