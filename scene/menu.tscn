@@ -398,6 +398,9 @@ text = "DOWN
 PRESS A KEY"
 align = 1
 
+[node name="SpawnPosition2D" type="Position2D" parent="."]
+position = Vector2( 1024, 64 )
+
 [connection signal="pressed" from="ui/Keybind_Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ui/Host_Button" to="." method="_on_Host_Button_pressed"]
 [connection signal="pressed" from="ui/Join_button" to="." method="_on_Join_button_pressed"]

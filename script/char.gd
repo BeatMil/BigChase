@@ -33,6 +33,7 @@ var is_ded = false
 var stun01_power_left = Vector2(-1500,-1200)
 var stun01_power_right = Vector2(1500,-1200)
 var is_stunned = false
+var is_recovery = false
 
 # hitbox
 onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
@@ -53,7 +54,7 @@ func _physics_process(_delta):
 	elif is_dashing_left:
 		motion.x =  -DASH
 	
-	if is_stunned:
+	if is_recovery:
 		lerp_motion_x()
 
 	motion.y += GRAVITY
@@ -161,7 +162,7 @@ func _on_downward_dash_timer_timeout():
 
 func play_attack01():
 	# normal attack
-	is_stunned = true
+	is_recovery = true
 	$AnimationPlayer.play("attack01")
 
 
@@ -218,7 +219,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		emit_signal("can_respawn")
 		queue_free()
 	elif anim_name == "attack01":
-		is_stunned = false
+		is_recovery = false
 
 
 func _on_StunTimer_timeout():

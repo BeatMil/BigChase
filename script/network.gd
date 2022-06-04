@@ -31,6 +31,7 @@ func join(ip: String):
 remote func register_player():
 	pass
 
+
 # sever side
 func player_connected(id):
 	print("player connected: ", id)
@@ -56,7 +57,7 @@ remotesync func spawn_player(id: int):
 	var player = PUSER.instance()
 	player.get_node("char/Sprite").modulate = color
 	#player.modulate = color
-	player.position = Vector2(600, 600)
+	player.position = get_node("/root/menu/SpawnPosition2D").position
 	player.name = str(id)
 	player.set_network_master(id)
 	Player.add_child(player)

@@ -13,7 +13,7 @@ var can_respawn_bool = false
 func _physics_process(delta):
 	if is_network_master():
 		if get_node_or_null("char"):
-			if not $char.is_stunned and not $char.is_ded:
+			if not $char.is_stunned and not $char.is_ded and not $char.is_recovery:
 				if Input.is_action_pressed("p1_up"):
 					$char.jump()
 

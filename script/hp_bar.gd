@@ -44,7 +44,7 @@ func increase_hp(amount: int):
 
 
 func update_bar():
-	if (float(hp) / max_hp) >= 0.8:
+	if (float(hp) / max_hp) >= 0.7:
 		to_green()
 	elif (float(hp) / max_hp) <= 0.3:
 		to_red()
