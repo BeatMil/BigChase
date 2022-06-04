@@ -52,6 +52,7 @@ func player_disconnected(id):
 func connected_to_server():
 	# spawn player from players_alive[]
 	spawn_player(get_tree().get_network_unique_id())
+	get_node("/root/menu/wait_ui").visible = false
 
 
 # client only
