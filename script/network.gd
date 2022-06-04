@@ -7,12 +7,14 @@ onready var FOOK = load("res://enities/players/fook_it.tscn")
 onready var PLAYER = load("res://enities/players/p1.tscn")
 onready var PUSER = load("res://enities/players/PlayerUser.tscn")
 onready var color = Color(1, 0.5, 1)
+const MENU = "res://scene/menu.tscn"
 
 
 func _ready():
-	get_tree().connect("network_peer_connected", self, "player_connected")
-	get_tree().connect("network_peer_disconnected", self, "player_disconnected")
-	get_tree().connect("connected_to_server", self, "connected_to_server")
+	var _ok1 = get_tree().connect("network_peer_connected", self, "player_connected")
+	var _ok2 = get_tree().connect("network_peer_disconnected", self, "player_disconnected")
+	var _ok3 = get_tree().connect("connected_to_server", self, "connected_to_server")
+	var _ok4 = get_tree().connect("connection_failed", self, "connection_failed")
 
 
 func host():
@@ -50,6 +52,12 @@ func player_disconnected(id):
 func connected_to_server():
 	# spawn player from players_alive[]
 	spawn_player(get_tree().get_network_unique_id())
+
+
+# client only
+func connection_failed():
+	print("failed to connect to server :(")
+	get_tree().change_scene(MENU)
 
 
 remotesync func spawn_player(id: int):

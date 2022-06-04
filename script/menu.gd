@@ -27,6 +27,10 @@ func _ready():
 #	$ui/Host_Button.grab_focus()
 
 
+func _physics_process(delta):
+	$wait_ui/Label.text = str($wait_ui/Timer.time_left)
+
+
 func _input(event):
 	if is_change_jump and event is InputEventKey and event.pressed:
 		InputMap.action_erase_events("p1_up")
@@ -84,7 +88,6 @@ func _input(event):
 			Player.remove_child(n)
 			n.queue_free()
 		get_tree().change_scene(MENU)
-		
 
 
 func _on_Button_pressed():
@@ -101,6 +104,8 @@ func _on_Host_Button_pressed():
 
 func _on_Join_button_pressed():
 	$ui.visible = false
+	$wait_ui.visible = true
+	$wait_ui/Timer.start()
 	Network.color = $ui/choose_color/Elesis.modulate
 	Network.join($ui/Ip_TextEdit.text)
 

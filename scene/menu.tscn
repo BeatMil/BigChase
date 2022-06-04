@@ -401,6 +401,21 @@ align = 1
 [node name="SpawnPosition2D" type="Position2D" parent="."]
 position = Vector2( 1024, 64 )
 
+[node name="wait_ui" type="Node2D" parent="."]
+visible = false
+
+[node name="Timer" type="Timer" parent="wait_ui"]
+wait_time = 30.0
+one_shot = true
+
+[node name="Label" type="Label" parent="wait_ui"]
+margin_left = 704.0
+margin_top = 520.0
+margin_right = 744.0
+margin_bottom = 534.0
+rect_scale = Vector2( 9.72131, 10.1952 )
+text = "TIME"
+
 [connection signal="pressed" from="ui/Keybind_Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ui/Host_Button" to="." method="_on_Host_Button_pressed"]
 [connection signal="pressed" from="ui/Join_button" to="." method="_on_Join_button_pressed"]
