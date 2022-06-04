@@ -1,4 +1,4 @@
-# p1.gd
+# PlayerUser.gd
 extends Node2D
 ########################################################
 # P1 controls
@@ -7,6 +7,7 @@ extends Node2D
 
 puppet var puppet_pos = Vector2()
 puppet var puppet_flip_h = false
+puppet var color = Color(1, 1, 1)
 
 
 func _physics_process(delta):

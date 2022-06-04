@@ -49,6 +49,7 @@ func _physics_process(_delta):
 	elif is_dashing_left:
 		motion.x =  -DASH
 
+	lerp_motion_x()
 	motion.y += GRAVITY
 	motion = move_and_slide(motion, UP)
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-export var hp = 20
+export var hp = 5
 var max_hp
 
 # Colors
@@ -9,9 +9,10 @@ onready var yellow = load("res://media/stylebox/yellow.tres")
 onready var red = load("res://media/stylebox/red.tres")
 
 func _ready():
-	var ok = $"../char".connect("stunned01", self, "_on_char_stunned01")
+	var ok = get_parent().connect("stunned01", self, "_on_char_stunned01")
 	print("connect hp_bar to char status: ", ok)
 	max_hp = hp
+	$ProgressBar.max_value = hp
 	to_yellow()
 	update_bar()
 
@@ -51,7 +52,7 @@ func update_bar():
 		to_yellow()
 	$ProgressBar.value = hp
 	if hp <= 0:
-		$"../char".ded()
+		get_parent().ded()
 
 
 func to_green():

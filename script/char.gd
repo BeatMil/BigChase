@@ -50,6 +50,7 @@ func _physics_process(_delta):
 	elif is_dashing_left:
 		motion.x =  -DASH
 
+	# lerp_motion_x()
 	motion.y += GRAVITY
 	motion = move_and_slide(motion, UP)
 
@@ -192,7 +193,7 @@ func _on_stun01_timer_timeout():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group('attack01'):
-#		emit_signal("stunned01")
+		emit_signal("stunned01")
 ##		$AudioStreamPlayer2D.set_stream(HURTSFX)
 ##		$AudioStreamPlayer2D.play()
 		if area.is_in_group('left'):
