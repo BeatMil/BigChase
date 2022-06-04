@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://enities/players/elesis.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enities/players/old_elesis.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sai/ground/01.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://enities/players/p1.tscn" type="PackedScene" id=4]

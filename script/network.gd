@@ -5,7 +5,7 @@ const MAX_PLAYER = 2
 onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
 onready var PLAYER = load("res://enities/players/p1.tscn")
-onready var PTEST = load("res://enities/players/p_test.tscn")
+onready var PUSER = load("res://enities/players/PlayerUser.tscn")
 
 
 func _ready():
@@ -47,7 +47,7 @@ func connected_to_server():
 
 func spawn_player(id: int):
 	# var player = PLAYER.instance()
-	var player = PTEST.instance()
+	var player = PUSER.instance()
 	player.position = Vector2(600, 600)
 	player.name = str(id)
 	player.set_network_master(id)

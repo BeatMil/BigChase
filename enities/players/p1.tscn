@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://enities/players/elesis.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enities/players/old_elesis.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/p1.gd" type="Script" id=2]
 
 [node name="p1_node2d" type="Node2D"]

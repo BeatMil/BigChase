@@ -2,7 +2,7 @@
 
 [ext_resource path="res://script/menu.gd" type="Script" id=1]
 [ext_resource path="res://sai/ground/01.png" type="Texture" id=2]
-[ext_resource path="res://hitboxes/hitbox01.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enities/players/elesis.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1080, 32 )
@@ -130,9 +130,9 @@ texture = ExtResource( 2 )
 position = Vector2( 952, 992 )
 shape = SubResource( 1 )
 
-[node name="hitbox01" parent="." instance=ExtResource( 3 )]
-position = Vector2( 992, 64 )
-ACTIVE_FRAME = 3000.0
+[node name="char" parent="." instance=ExtResource( 3 )]
+modulate = Color( 0.74902, 0.25098, 0.25098, 1 )
+position = Vector2( 960, 872 )
 
 [connection signal="pressed" from="ui/Keybind_Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ui/Host_Button" to="." method="_on_Host_Button_pressed"]
