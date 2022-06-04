@@ -207,6 +207,7 @@ func _on_Area2D_area_entered(area):
 		emit_signal("stunned01")
 ##		$AudioStreamPlayer2D.set_stream(HURTSFX)
 ##		$AudioStreamPlayer2D.play()
+		$AnimationPlayer2.play("hurt")
 		if area.is_in_group('left'):
 			stun01('left')
 		elif area.is_in_group('right'):
