@@ -1,7 +1,7 @@
 extends Node
 
 const PORT = 50021
-const MAX_PLAYER = 2
+const MAX_PLAYER = 6
 onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
 onready var PLAYER = load("res://enities/players/p1.tscn")
@@ -15,7 +15,7 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "connected_to_server")
 	
 
-func host(color: Color):
+func host():
 	var network = NetworkedMultiplayerENet.new()
 	network.create_server(PORT, MAX_PLAYER)
 	get_tree().set_network_peer(network)
@@ -31,15 +31,15 @@ func join(ip: String):
 # sever side
 func player_connected(id):
 	print("player connected: ", id)
+	spawn_player(id)
 #	rpc_id(id, "spawn_player", id, color)
 
 
 # sever side
 func player_disconnected(id):
 	print("player disconnected: ", id)
-	var dis_player = get_node_or_null(str(id))
-	if dis_player:
-		dis_player.queue_free()
+	if Player.get_node_or_null(str(id)):
+		Player.get_node_or_null(str(id)).queue_free()
 
 
 # client only
