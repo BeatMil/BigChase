@@ -7,7 +7,7 @@ extends Node2D
 
 puppet var puppet_pos = Vector2()
 puppet var puppet_flip_h = false
-puppet var color = Color(1, 1, 1)
+puppet var puppet_color = Color(1, 1, 1)
 
 
 func _physics_process(delta):
@@ -42,22 +42,26 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("p1_attack"):
 				$char.attack01()
 
-		rset("puppet_pos", $char.position)
-		rset("puppet_flip_h", $char/Sprite.flip_h)
+		rset_unreliable("puppet_pos", $char.position)
+		rset_unreliable("puppet_flip_h", $char/Sprite.flip_h)
+		rset_unreliable("puppet_color", $char/Sprite.modulate)
+		
 #		rset("puppet_flip_h", $char/Sprite.flip_h)
 #		rset_unreliable("puppet_pos", $char.position)
 	else:
 		$char.position = puppet_pos
 		$char/Sprite.flip_h = puppet_flip_h
-#		$char/Sprite.flip_h = puppet_flip_h
+		$char/Sprite.modulate = puppet_color
 		
-	#	if not is_network_master():
-	#		puppet_pos = position # To avoid jitter
+#	if not is_network_master():
+#		puppet_pos = position # To avoid jitter
 
 
 func _ready():
 	puppet_pos = $char.position
 	puppet_flip_h = $char/Sprite.flip_h
+	
+	
 #	puppet_flip_h = $char/Sprite.flip_h
 #func puppet_position_set(new_value) -> void:
 #	puppet_position = new_value

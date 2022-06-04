@@ -88,12 +88,13 @@ func _on_Button_pressed():
 
 func _on_Host_Button_pressed():
 	$ui.visible = false
-	var color = $ui/choose_color/Elesis.modulate
+	Network.color = $ui/choose_color/Elesis.modulate
 	Network.host()
 
 
 func _on_Join_button_pressed():
 	$ui.visible = false
+	Network.color = $ui/choose_color/Elesis.modulate
 	Network.join($ui/Ip_TextEdit.text)
 
 

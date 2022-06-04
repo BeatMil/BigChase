@@ -6,7 +6,7 @@ onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
 onready var PLAYER = load("res://enities/players/p1.tscn")
 onready var PUSER = load("res://enities/players/PlayerUser.tscn")
-onready var color = Color(0.5, 1, 1)
+onready var color = Color(1, 0.5, 1)
 
 
 func _ready():
@@ -53,6 +53,7 @@ func connected_to_server():
 func spawn_player(id: int):
 	# var player = PLAYER.instance()
 	var player = PUSER.instance()
+	player.get_node("char/Sprite").modulate = color
 #	player.modulate = color
 	player.position = Vector2(600, 600)
 	player.name = str(id)
