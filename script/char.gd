@@ -170,7 +170,7 @@ remotesync func _play_attack01():
 	$AnimationPlayer.play("attack01")
 
 
-remotesync func _attack01():
+remote func _attack01():
 	var offset
 	if $Sprite.flip_h == true:
 		offset = Vector2(-150,0)
