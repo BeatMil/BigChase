@@ -50,7 +50,7 @@ func _physics_process(delta):
 		if can_respawn_bool:
 			if Input.is_action_just_pressed("p1_attack"):
 				can_respawn_bool = false
-				Network.rpc("spawn_player", get_tree().get_network_unique_id())
+				Network.rpc("respawn", get_tree().get_network_unique_id())
 #				Network.spawn_player(get_tree().get_network_unique_id())
 	else:
 		if get_node_or_null("char"):
