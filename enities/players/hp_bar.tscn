@@ -16,7 +16,5 @@ margin_right = 896.0
 margin_bottom = 72.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
-max_value = 20.0
 step = 1.0
-value = 10.0
 percent_visible = false
