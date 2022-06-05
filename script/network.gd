@@ -6,6 +6,7 @@ onready var BOB = load("res://enities/players/bob_help.tscn")
 onready var FOOK = load("res://enities/players/fook_it.tscn")
 onready var PLAYER = load("res://enities/players/p1.tscn")
 onready var PUSER = load("res://enities/players/PlayerUser.tscn")
+onready var ELESIS = load("res://enities/players/elesis.tscn")
 onready var color = Color(1, 0.5, 1)
 const MENU = "res://scene/menu.tscn"
 
@@ -70,3 +71,13 @@ remotesync func spawn_player(id: int):
 	player.name = str(id)
 	player.set_network_master(id)
 	Player.add_child(player)
+
+
+remotesync func respawn(id: int):
+	# var player = PLAYER.instance()
+	var character = ELESIS.instance()
+	character.name = "char"
+	character.get_node("Sprite").modulate = color
+#	character.position = get_node("/root/menu/SpawnPosition2D").position
+	if Player.get_node_or_null(str(id)):
+		Player.get_node_or_null(str(id)).add_child(character)
