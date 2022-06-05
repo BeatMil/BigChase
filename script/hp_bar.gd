@@ -1,6 +1,6 @@
 extends Node2D
 
-export var hp = 5
+onready var hp = 2
 var max_hp
 
 # Colors
