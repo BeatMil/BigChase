@@ -78,6 +78,6 @@ remotesync func respawn(id: int):
 	var character = ELESIS.instance()
 	character.name = "char"
 	character.get_node("Sprite").modulate = color
-#	character.position = get_node("/root/menu/SpawnPosition2D").position
+	character.position = get_node("/root/menu/SpawnPosition2D").global_position
 	if Player.get_node_or_null(str(id)):
 		Player.get_node_or_null(str(id)).add_child(character)

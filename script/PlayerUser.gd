@@ -60,6 +60,8 @@ func _physics_process(delta):
 
 
 func can_respawn():
+	var final_pos = $"/root/menu/SpawnPosition2D".global_position
+	rset_unreliable("puppet_pos", final_pos)
 	can_respawn_bool = true
 
 
