@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://script/hit_particle.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 160.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 16.0
+color = Color( 0.937255, 0.270588, 0.160784, 1 )
+
+[node name="Particles2D" type="Particles2D"]
+emitting = false
+lifetime = 3.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+process_material = SubResource( 1 )
+script = ExtResource( 1 )

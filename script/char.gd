@@ -37,6 +37,8 @@ var is_recovery = false
 
 # hitbox
 onready var hitbox01 = load("res://hitboxes/hitbox01.tscn")
+onready var HITPARTICLE01 = load("res://media/particles/hit_particle01.tscn")
+onready var HITPARTICLE02 = load("res://media/particles/hit_particle02.tscn")
 
 # signal
 signal stunned01
@@ -192,8 +194,10 @@ func attack01(): # let p_test call this
 func stun01(direction):
 	if direction == 'left':
 		motion = stun01_power_left
+		spawn_hit_particle01("left")
 	elif direction == 'right':
 		motion = stun01_power_right
+		spawn_hit_particle01("right")
 	is_stunned = true
 	$StunTimer.start()
 
@@ -230,3 +234,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_StunTimer_timeout():
 	is_stunned = false
 
+
+func spawn_hit_particle01(direction: String):
+	if  direction == "left":
+		var hit_particle01 = HITPARTICLE01.instance()
+		add_child(hit_particle01)
+	elif direction == "right":
+		var hit_particle02 = HITPARTICLE02.instance()
+		add_child(hit_particle02)
